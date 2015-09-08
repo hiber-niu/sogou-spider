@@ -1,0 +1,26 @@
+# 一个服务号占一行: openid 服务号 采集页数(留空默认为2) # 
+oIWsFt7_-0DAifRAFLqmtjIKtC5Y 羊毛党  2
+oIWsFt8iOH_akAg1vJ56tk8wZZcQ  我会薅羊毛 2
+oIWsFtw_YRIJPoIJhoybCXvJjuHw  万众优惠券 2
+oIWsFt0Oc3uPjwWG_fg9D4ukzZ5E  薅羊毛 1
+oIWsFt0GZK-nrWvsG5ZpZYDLlSlI  东农小抠 1
+oIWsFt3AkpVTjcONyUo59ZVccYis  折扣公社 1
+oIWsFt7QLqS-mZkOczR6tlzk5p54  手机优惠券 1
+oIWsFt86TLhcev-zo5YmRctFRbA0  逗妈白菜生活馆 1
+oIWsFt0IdkMg2bjJgtroH8RfLvcA  穷游折扣 1
+oIWsFt63dKw7mQKM6hBmr6MVMpCg  穷游折扣北京出发 1
+oIWsFt-8ojvnuJoQDNSEFla7odug  志鹄-券妈妈 1
+oIWsFt7wWsHX27_f0-EaVmTP2wU4  优活成都 1
+oIWsFt5hvdOoSHymzZ5NxfQ-FqSE  沈一点 1
+oIWsFtzv8NDwScArLAH3notu3jGM  帮你薅羊毛 1
+oIWsFtzv_qKvqm7bFE25OwxmhS_8  诚妈亲子时光 1
+oIWsFt3sLM8vMSpprg8nI14Zo11c  杭州U粉团 1
+oIWsFtxML_eD_JHDCMHgLVMNLgL0  北大清华讲座 1
+oIWsFtxiwIZodJvtUkkiFSGruHck  有奖分享 1
+oIWsFtxXV5V4iaitIuovJZNzMPGI  百事可乐北京 1
+oIWsFt0G4pR0qPcqFhvsOxxLDz-Q  Myhool麦货网 1
+oIWsFt2lJp6O3QsRQyJVd192DCFU  优惠猫 1
+oIWsFt_zwfN1EwDWUWIToZAugKuc  小优惠享in 1
+oIWsFt-5ztdNA5Ey4qz7F7vGf2xE  微信智慧生活馆 1
+oIWsFt010Wr5gOLMGX9TEaW9L9Ro  兔宝电影惠 1
+oIWsFt4UhS6QeJqpPk8PUGG93pdA  优粉团 1
