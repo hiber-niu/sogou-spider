@@ -16,6 +16,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 import dateparser
+from selenium.webdriver.common.keys import Keys
 
 from pymongo import MongoClient
 # import requests
@@ -24,11 +25,19 @@ import csv
 
 
 def get_service_search_page(openid, service_name, pages=2):
-    service_url = u'http://weixin.sogou.com/gzh?openid={openid}'
+    service_url = u'http://weixin.sogou.com/weixin?type=1&query={service_name}'
     driver = webdriver.Chrome('D:/chromedriver')
     articles = []
 
-    driver.get(service_url.format(openid=openid))
+    driver.get(service_url.format(service_name=service_name))
+    service_redirect = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="sogou_vr_11002301_box_0"]/div[2]/h3')))
+    service_redirect.click()
+
+    driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
+    driver.implicitly_wait(1)
+    driver.switch_to.window(driver.window_handles[-1])
+    # driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL +'W')
+    print driver.current_url
 
     click_num = 0
 
@@ -46,7 +55,8 @@ def get_service_search_page(openid, service_name, pages=2):
             article = {}
             article['openid'] = openid
             article['service_name'] = service_name
-            article['url'] = service_url.format(openid=openid)
+            article['url'] = driver.current_url
+            # article['url'] = service_url.format(openid=openid)
             article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').text
             article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+index+'"]').text
             article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').get_attribute('href')
@@ -86,7 +96,7 @@ def get_service_search_page(openid, service_name, pages=2):
                 WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
                 articles[index]['article_url'] = driver.current_url
             except Exception:
-                raise
+                continue
 
         driver.quit()
     return articles

@@ -154,7 +154,6 @@ def get_service_search_results(service_file):
                     continue
             '''
 
-    print len(articles)
     articles = remove_dup(articles)
     # query mongodb and remove documnets already stored
     # articles = article_to_mongodb('weixin', 'service', articles)
