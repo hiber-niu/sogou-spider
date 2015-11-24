@@ -65,7 +65,7 @@ def get_keyword_search_results(keywords_file):
                 try:
                     articles.extend(get_keyword_search_page(query[0]))
                 except Exception as e:
-                    print(e.msg)
+                    print(str(e))
                     print('Exception occured, retried with %s' % query[0])
                     try:
                         articles.extend(get_keyword_search_page(query[0]))
@@ -77,7 +77,7 @@ def get_keyword_search_results(keywords_file):
                 try:
                     articles.extend(get_keyword_search_page(query[0], int(query[1])))
                 except Exception as e:
-                    print(e.msg)
+                    print(str(e))
                     print('Exception occured, retried with %s' % query[0])
                     try:
                         articles.extend(get_keyword_search_page(query[0], int(query[1])))

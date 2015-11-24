@@ -1,0 +1,14 @@
+Ä}q(Uweixin_downloader]q(Umongo_collectionqUget_service_search_pageqUarticlesqUurlqUget_article_search_pageqUdriverqUstore_articleq	U
+date_parseq
+Uservice_urlqUmongo_databaseqeUweixin.html_extract]q(URenderqUarticle_extractorqeUsolrindex_dongtai]q(UMySolrqUDATE_FORMATqUmin_maxqUindexqUget_max_indexed_docnoqUget_first_img_srcqUget_max_indexed_urlqUget_imgqeUfocused.comm.rake]q(Ucalculate_word_scoresqUtextqUseparate_wordsqUkeywordsqUkeywordcandidatesqU!generate_candidate_keyword_scoresqUsplit_sentencesq UsortedKeywordsq!Ubuild_stop_word_regexq"URakeq#Ugenerate_candidate_keywordsq$U	is_numberq%Utestq&Uload_stop_wordsq'U
+wordscoresq(UsentenceListq)U
+phraseListq*Urakeq+Ustoppathq,Ustopwordpatternq-Udebugq.UtotalKeywordsq/eUwebdriver_google]q0(U	next_pageq1U
+query_listq2Ucrawlq3U	parse_urlq4eUweixin.email_result]q5U
+send_emailq6aUfocused.comm.rotate_useragent]q7URotateUserAgentMiddlewareq8aUhtml_download]q9(UArticleExtractorq:URenderq;eUscript]q<(Uarticlesq=Uurlq>Uworkq?Ufilter_articleq@Uget_pageqAUArticleqBUmainqCU	dump_fileqDeUfocused.items]qEUFocusedItemqFaUweixin.img_downloader]Uweixin.weixin_util]qG(Uget_service_search_pageqHU
+remove_dupqIU
+date_parseqJUarticle_to_mongodbqKUarticle_to_fileqLUget_keyword_search_pageqMeUfocused.spiders.googlenews]qN(UGoogleNewsSpiderqOU	COUNTRIESqPeUweixin.html_download]qQ(h>heUtest]qRUget_redirect_page_urlqSaUfocused.spiders.warc]qTU
+WarcSpiderqUaUfocused.comm.proxy]qVUSelectiveProxyMiddlewareqWaUfocused.spiders.search]qXUSearchSpiderqYaUfocused.pipelines]qZUFocusedPipelineq[aUweixin_util]q\(hhhh	h
+heUweixin]Ufocused.comm]Ufocused]Ufocused.spiders.googlesearch]q](UGoogleSearchSpiderq^hPeUfocused.comm.query]q_(Ucreate_querys_allq`U
+read_linesqaUcreate_querysqbU	read_dictqceUsougou]qd(Uget_service_search_resultsqeUget_keyword_search_resultsqfUsougouqgeUsetup]Ufocused.spiders.googlenews1]qh(UGoogleNewsSpider1qihPeUfocused.spiders.solr]qjU
+SolrSpiderqkaUfocused.settings]ql(UNEWSPIDER_MODULEqmUMONGODB_UNIQUE_KEYqnUITEM_PIPELINESqoUMONGODB_COLLECTIONqpUMONGODB_URIqqUIMAGES_MIN_HEIGHTqrUSPIDER_MODULESqsUWEBDRIVER_BROWSERqtUBOT_NAMEquU	TASK_PATHqvUIMAGES_STOREqwU	DICT_PATHqxUCOOKIES_ENABLEDqyUMONGODB_DATABASEqzUWEBDRIVER_OPTIONSq{U
+HTTP_PROXYq|UIMAGES_MIN_WIDTHq}USAVED_FILE_DIRq~UDOWNLOADER_MIDDLEWARESqUPROXY_SPIDERSqÄUNAMED_ENTITY_SERVICE_URLqÅeUfocused.spiders.dongtai]qÇUDongtaiSpiderqÉaUfocused.spiders]U	solrindex]qÑ(hhheUfocused.comm.idcheck]qÖ(UMongoIDCheckqÜUnot_setqáeu.

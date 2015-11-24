@@ -1,26 +1,26 @@
 # 一个服务号占一行: openid 服务号 采集页数(留空默认为2) # 
-oIWsFt7_-0DAifRAFLqmtjIKtC5Y 羊毛党  2
-oIWsFt8iOH_akAg1vJ56tk8wZZcQ  我会薅羊毛 2
-oIWsFtw_YRIJPoIJhoybCXvJjuHw  万众优惠券 2
-oIWsFt0Oc3uPjwWG_fg9D4ukzZ5E  薅羊毛 1
-oIWsFt0GZK-nrWvsG5ZpZYDLlSlI  东农小抠 1
-oIWsFt3AkpVTjcONyUo59ZVccYis  折扣公社 1
-oIWsFt7QLqS-mZkOczR6tlzk5p54  手机优惠券 1
-oIWsFt86TLhcev-zo5YmRctFRbA0  逗妈白菜生活馆 1
-oIWsFt0IdkMg2bjJgtroH8RfLvcA  穷游折扣 1
-oIWsFt63dKw7mQKM6hBmr6MVMpCg  穷游折扣北京出发 1
-oIWsFt-8ojvnuJoQDNSEFla7odug  志鹄-券妈妈 1
-oIWsFt7wWsHX27_f0-EaVmTP2wU4  优活成都 1
-oIWsFt5hvdOoSHymzZ5NxfQ-FqSE  沈一点 1
-oIWsFtzv8NDwScArLAH3notu3jGM  帮你薅羊毛 1
-oIWsFtzv_qKvqm7bFE25OwxmhS_8  诚妈亲子时光 1
-oIWsFt3sLM8vMSpprg8nI14Zo11c  杭州U粉团 1
-oIWsFtxML_eD_JHDCMHgLVMNLgL0  北大清华讲座 1
-oIWsFtxiwIZodJvtUkkiFSGruHck  有奖分享 1
-oIWsFtxXV5V4iaitIuovJZNzMPGI  百事可乐北京 1
-oIWsFt0G4pR0qPcqFhvsOxxLDz-Q  Myhool麦货网 1
-oIWsFt2lJp6O3QsRQyJVd192DCFU  优惠猫 1
-oIWsFt_zwfN1EwDWUWIToZAugKuc  小优惠享in 1
-oIWsFt-5ztdNA5Ey4qz7F7vGf2xE  微信智慧生活馆 1
-oIWsFt010Wr5gOLMGX9TEaW9L9Ro  兔宝电影惠 1
-oIWsFt4UhS6QeJqpPk8PUGG93pdA  优粉团 1
+# oIWsFt7_-0DAifRAFLqmtjIKtC5Y 羊毛党  2
+oIWsFt8iOH_akAg1vJ56tk8wZZcQ&ext=sU3MZ0fkifRlNBhML-hmexk5I6SinQi6izG3b6zfmxikrBpBqXwvjbkYgjmUlK7o  我会薅羊毛 2
+# oIWsFtw_YRIJPoIJhoybCXvJjuHw  万众优惠券 2
+oIWsFt0Oc3uPjwWG_fg9D4ukzZ5E&ext=sU3MZ0fkifSWFj92yV_s-vn5ydi4IRJe3CgmpjFtbDMKyXgB0F3U4hC_EMN9ycmS 薅羊毛 1
+oIWsFt0GZK-nrWvsG5ZpZYDLlSlI&ext=sU3MZ0fkifQu7vjfl16Q3FlSMu7SQoHZsB5-1SOFBNTTSyTcpZnWmM4z5WhDdSp9  东农小抠 1
+oIWsFt3AkpVTjcONyUo59ZVccYis&ext=sU3MZ0fkifRXMgwhUeizuG3ZUhcOx2WAIOaH8ByVKY6qkWH4fogKqrAMqSWHNHNO  折扣公社 1
+oIWsFt7QLqS-mZkOczR6tlzk5p54&ext=sU3MZ0fkifTg1kL4PLum0ZvGdlIsmq3Rp5VTnbzkVqOoLCwGDsR-w-fFziHqlpVJ 手机优惠券 1
+oIWsFt86TLhcev-zo5YmRctFRbA0&ext=sU3MZ0fkifTQ6wyD3AHGnUbI_8hWnCJLKtvWBD0ThT6uZ8QGnbjRNIlHYyDjXfMO  逗妈白菜生活馆 1
+oIWsFt0IdkMg2bjJgtroH8RfLvcA&ext=sU3MZ0fkifTFzdGjTG93AnLE0r_vImI5yYmfAnDvnBHKM4iGuzs3He7yOZOgdoiN  穷游折扣 1
+oIWsFt63dKw7mQKM6hBmr6MVMpCg&ext=sU3MZ0fkifSFboVBXVPIre4Xdd_xAkrCLWgQghP2L0qB3r45Y6uASVay0a9k5ELX  穷游折扣北京出发 1
+oIWsFt-8ojvnuJoQDNSEFla7odug&ext=sU3MZ0fkifQyFIbhcJrZBVTCyS3xqu573sXISVDW5eiyjb4Y9KWm9vK22QKhdfqQ  券妈妈 1
+# oIWsFt7wWsHX27_f0-EaVmTP2wU4  优活成都 1
+oIWsFt5hvdOoSHymzZ5NxfQ-FqSE&ext=sU3MZ0fkifRnzqeI-oiMLNJowcyMKAh1EDzaK-SLQBmS3_5rF2AJGe1KPlb0k7RD  沈一点 1
+oIWsFtzv8NDwScArLAH3notu3jGM&ext=sU3MZ0fkifQQDKMZdlffgG5v-ABWnLsz1KgBUkFK9S1YRruBG9z1mjROBgsRaM1r  帮你薅羊毛 1
+oIWsFtzv_qKvqm7bFE25OwxmhS_8&ext=sU3MZ0fkifRoSEaJzeBIJVA8t_Waaw2FbUSrSoGm3X1wxZapbu-e3ekOMWH9x246  诚妈亲子时光 1
+#oIWsFt3sLM8vMSpprg8nI14Zo11c&ext=alQlAlGoElkitB__sFcqcB3xcermkVZ6ck6a_dCXd19uM2YBS1MFBhim6ocjlmnx  杭州U粉团 1
+oIWsFtxML_eD_JHDCMHgLVMNLgL0&ext=sU3MZ0fkifQpo5pEVv0wnI9jQN2MD12WqWHCQwotXYWJ9zHxuBshZdgSofSI4YMp  北大清华讲座 1
+oIWsFtxiwIZodJvtUkkiFSGruHck&ext=sU3MZ0fkifQ0nGxDZw6Rb3E41jGt3sJWmJX-EcpYyjNvg10w1jeqhy7b8lcrQNMi  有奖分享 1
+oIWsFtxXV5V4iaitIuovJZNzMPGI&ext=sU3MZ0fkifSXtGtNhpySsCY5mEgnZhl0KXHqtGKW6TtEuGedHnaRbXHR6-nsfmHN  百事可乐北京 1
+oIWsFt0G4pR0qPcqFhvsOxxLDz-Q&ext=sU3MZ0fkifQsxEUFwqBPELrMJGyIUJIebpkAqP9NddaCfNDWgRm_wgGHcEHV7f04  Myhool麦货网 1
+oIWsFt2lJp6O3QsRQyJVd192DCFU&ext=sU3MZ0fkifR_ZL7GyQ0EPu85k-hBKo2qQAtB3WGDuLhB8Ujx0zaPTfOXxPMtsVwB  优惠猫 1
+oIWsFt_zwfN1EwDWUWIToZAugKuc&ext=sU3MZ0fkifRHU75QwUswHhHk3OwAjHJVaBuuSCi-3bCfhRf6zhYShA_j3Va0J_hb  小优惠享in 1
+oIWsFt-5ztdNA5Ey4qz7F7vGf2xE&ext=sU3MZ0fkifQuNxVuXAc0WM8m_A2_79vTWtpyrs0fQxECwH7vi0fQbwpAuEcLJUQr  微信智慧生活馆 1
+oIWsFt010Wr5gOLMGX9TEaW9L9Ro&ext=sU3MZ0fkifQGBsjJpNN4Q1JLDaMY0a6QN_XqVI9qHPE26dY2edv6iTY_1dD0BFh9  兔宝电影惠 1
+oIWsFt4UhS6QeJqpPk8PUGG93pdA&ext=sU3MZ0fkifSnmLW9U4CGIqAHqtANq6EjJ9Bj8StOXf_ei5oOKV_feKNqtb_EA3d8  优粉团 1

@@ -18,10 +18,13 @@ import time
 import dateparser
 from selenium.webdriver.common.keys import Keys
 
+from datetime import datetime, timedelta
+
 from pymongo import MongoClient
 # import requests
 import re
 import csv
+import collections
 
 
 def get_service_search_page(openid, service_name, pages=2):
@@ -52,15 +55,19 @@ def get_service_search_page(openid, service_name, pages=2):
 
         for i in range(pages*10):
             index = str(i)
-            article = {}
-            article['openid'] = openid
+            article = collections.OrderedDict()
+            publish_date = date_parse(driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_box_'+index+'"]/div[2]/div').text)
+            if not publish_date:
+                continue
+
+            article['publish_date'] = publish_date
             article['service_name'] = service_name
+            article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').text
+            article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').get_attribute('href')
+            article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+index+'"]').text
+            article['openid'] = openid
             article['url'] = driver.current_url
             # article['url'] = service_url.format(openid=openid)
-            article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').text
-            article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+index+'"]').text
-            article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').get_attribute('href')
-            article['publish_date'] = date_parse(driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_box_'+index+'"]/div[2]/div').text)
             article['crawled_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             # article['html'] = requests.get(article['article_url']).content
             articles.append(article)
@@ -86,6 +93,7 @@ def get_service_search_page(openid, service_name, pages=2):
             # articles.append(article)
 
     except Exception:
+        driver.close()
         raise
     finally:
         # 搜狗修改了网页跳转逻辑，必须在当前session内跳转才能获得微信文章真实网
@@ -116,23 +124,25 @@ def get_keyword_search_page(query, pages=2):
             WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sogou_next"]')))
 
             for i in range(8):
-                article = {}
+                article = collections.OrderedDict()
                 try:
-                    article['query_word'] = query
-                    article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+str(i)+'"]').text
-                    article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+str(i)+'"]').text
-                    article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_img_'+str(i)+'"]').get_attribute('href')
                     publish_text = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_box_'+str(i)+'"]/div[2]/div').text
                     # split publish_text with two continuous number
                     match = re.match(r'(.*?)(\d\d.+)', publish_text)
-                    article['publisher'] = match.group(1)
+                    if not date_parse(match.group(2)):
+                        continue
                     article['publish_date'] = date_parse(match.group(2))
+                    article['publisher'] = match.group(1)
+                    article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+str(i)+'"]').text
+                    article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_img_'+str(i)+'"]').get_attribute('href')
+                    article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+str(i)+'"]').text
+                    article['query_word'] = query
                     article['url'] = url.format(query=query.decode('utf-8'), page=page)
                     article['crawled_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                     # article['html'] = requests.get(article['article_url']).content
                     articles.append(article)
                 except Exception as e:
-                    print(e.msg)
+                    print(str(e))
                     continue
             # crawl next page
             page = page + 1
@@ -141,6 +151,7 @@ def get_keyword_search_page(query, pages=2):
             next_page = driver.find_element_by_xpath('//*[@id="sogou_next"]')
             next_page.click()
     except Exception:
+        driver.close()
         raise
     finally:
         for index in range(len(articles)):
@@ -167,6 +178,13 @@ def date_parse(date_str):
     else:
         date_text = time.strftime('%Y',time.localtime(time.time())) +',' + date_text
     result = dateparser.parse(date_text, date_formats=['%Y-%m-%d %H:%M:%S'])
+
+    if result:
+        if (datetime.now()-result) > timedelta(days=2):
+            return False
+    else:
+        return False
+
     if result:
         return str(result)
     else:
