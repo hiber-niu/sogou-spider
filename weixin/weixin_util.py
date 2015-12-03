@@ -16,7 +16,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 import dateparser
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
+import random
 
 from datetime import datetime, timedelta
 
@@ -33,12 +34,14 @@ def get_service_search_page(openid, service_name, pages=2):
     articles = []
 
     driver.get(service_url.format(service_name=service_name))
-    service_redirect = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="sogou_vr_11002301_box_0"]/div[2]/h3')))
+    service_redirect = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="sogou_vr_11002301_box_0"]/div[2]/h3')))
     service_redirect.click()
 
-    driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
-    driver.implicitly_wait(1)
+    # driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
+    # change driver url location
+    time.sleep(2)
     driver.switch_to.window(driver.window_handles[-1])
+    # driver.implicitly_wait(2)
     # driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL +'W')
     print driver.current_url
 
@@ -46,12 +49,13 @@ def get_service_search_page(openid, service_name, pages=2):
 
     try:
         if click_num < pages:
-            click_more = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="wxmore"]/a')))
+            time.sleep(random.randrange(1, 3))
+            click_more = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="wxmore"]/a')))
             click_more.click()
             click_num = click_num + 1
 
         # waitting until element is already reloaded
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="wxmore"]/a')))
+        # WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="wxmore"]/a')))
 
         for i in range(pages*10):
             index = str(i)
@@ -92,18 +96,31 @@ def get_service_search_page(openid, service_name, pages=2):
             # # article['html'] = requests.get(article['article_url']).content
             # articles.append(article)
 
-    except Exception:
+    except:
+        import sys, traceback
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        print('exc_type: %s' %exc_type)
+        print('exc_value: %s' %exc_value)
+        print('exc_traceback: %s' %exc_traceback)
+    # except Exception as e:
+
+        print('####')
+        import uniout
+        print(str(e))
         driver.close()
         raise
     finally:
         # 搜狗修改了网页跳转逻辑，必须在当前session内跳转才能获得微信文章真实网
         # 址。20150908
         for index in range(len(articles)):
+            time.sleep(random.randrange(1, 3))
             try:
                 driver.get(articles[index]['article_url'])
-                WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
+                WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
                 articles[index]['article_url'] = driver.current_url
-            except Exception:
+            except Exception as e:
+                print('#@@@')
+                print(str(e))
                 continue
 
         driver.quit()
@@ -160,8 +177,7 @@ def get_keyword_search_page(query, pages=2):
                 WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
                 articles[index]['article_url'] = driver.current_url
             except Exception:
-                raise
-
+                continue
         driver.quit()
 
     return articles
