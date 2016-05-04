@@ -86,7 +86,7 @@ def get_service_search_page(openid, service_name, pages=2):
         # 搜狗修改了网页跳转逻辑，必须在当前session内跳转才能获得微信文章真实网
         # 址。20150908
         for index in range(len(articles)):
-            time.sleep(random.randrange(1, 3))
+            time.sleep(random.randrange(3, 10))
             try:
                 driver.get(articles[index]['article_url'])
                 WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
