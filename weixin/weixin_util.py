@@ -86,7 +86,7 @@ def get_service_search_page(openid, service_name, pages=2):
         # 搜狗修改了网页跳转逻辑，必须在当前session内跳转才能获得微信文章真实网
         # 址。20150908
         for index in range(len(articles)):
-            time.sleep(random.randrange(3, 10))
+            time.sleep(random.randrange(2, 6))
             try:
                 driver.get(articles[index]['article_url'])
                 WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
@@ -100,9 +100,13 @@ def get_service_search_page(openid, service_name, pages=2):
     return articles
 
 
-def get_keyword_search_page(query, pages=2):
+def get_keyword_search_page(query, pages=1):
+    '''
+    pages has been deprecated.
+    '''
     url = u'http://weixin.sogou.com/weixin?query={query}&type=2&page={page}&ie=utf8'
     driver = webdriver.Chrome('D:/chromedriver')
+    driver.maximize_window()
 
     driver.get(url.format(query=query.decode('utf-8'), page=1))
     articles = []
@@ -110,48 +114,51 @@ def get_keyword_search_page(query, pages=2):
     # os.environ['DISPLAY'] = None
     page = 1
     try:
-        while True:
-            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sogou_next"]')))
+        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sogou_next"]')))
 
-            for i in range(10):
-                article = collections.OrderedDict()
-                try:
-                    publish_text = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_box_'+str(i)+'"]/div[2]/div').text
-                    # split publish_text with number
-                    match = re.match(r'(.*?)(\d.+)', publish_text)
-                    if not date_parse(match.group(2)):
-                        continue
-                    article['publish_date'] = date_parse(match.group(2))
-                    article['publisher'] = match.group(1)
-                    article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+str(i)+'"]').text
-                    article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_img_'+str(i)+'"]').get_attribute('href')
-                    article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+str(i)+'"]').text
-                    article['query_word'] = query
-                    article['url'] = url.format(query=query.decode('utf-8'), page=page)
-                    article['crawled_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-                    # article['html'] = requests.get(article['article_url']).content
-                    articles.append(article)
-                except Exception as e:
-                    print(str(e))
+        for i in range(10):
+            article = collections.OrderedDict()
+            try:
+                publish_text = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_box_'+str(i)+'"]/div[2]/div').text
+                # split publish_text with number
+                match = re.match(r'(.*?)(\d.+)', publish_text)
+                if not date_parse(match.group(2)):
                     continue
+                article['publish_date'] = date_parse(match.group(2))
+                article['publisher'] = match.group(1)
+                article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+str(i)+'"]').text
+                article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+str(i)+'"]').get_attribute('href')
+                # article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_img_'+str(i)+'"]').get_attribute('href')
+                article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+str(i)+'"]').text
+                article['query_word'] = query
+                article['url'] = url.format(query=query.decode('utf-8'), page=page)
+                article['crawled_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                # //*[@id="sogou_vr_11002601_title_0"]article['html'] = requests.get(article['article_url']).content
+                articles.append(article)
+            except Exception as e:
+                print(str(e))
+                continue
             # crawl next page
-            page = page + 1
-            if page > pages:
-                break
-            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sogou_next"]')))
-            next_page = driver.find_element_by_xpath('//*[@id="sogou_next"]')
-            next_page.click()
-    except Exception:
+            # page = page + 1
+            # if page > pages:
+                # break
+            # time.sleep(random.randrange(3, 8))
+            # WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sogou_next"]')))
+            # next_page = driver.find_element_by_xpath('//*[@id="sogou_next"]')
+            # next_page.click()
+    except Exception as e:
+        print str(e)
         driver.close()
         raise
     finally:
         for index in range(len(articles)):
             try:
-                time.sleep(random.randrange(3, 10))
+                time.sleep(random.randrange(3, 8))
                 driver.get(articles[index]['article_url'])
                 WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
                 articles[index]['article_url'] = driver.current_url
-            except Exception:
+            except Exception as e:
+                print e
                 continue
         driver.quit()
 
