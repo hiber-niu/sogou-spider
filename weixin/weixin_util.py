@@ -6,7 +6,7 @@
         get_service_search_page: using weixin service openid to search
         get_article_search_page: using keywords to search
 
-    author: hiber_niu@163.com   date:2015-07-03
+    author: hiber.niu@gmail.com   date:2015-07-03
 '''
 __author__ = 'hiber'
 
@@ -29,8 +29,12 @@ import collections
 
 
 def get_service_search_page(openid, service_name, pages=2):
+    '''
+    pages has been deprecated.
+    '''
     service_url = u'http://weixin.sogou.com/weixin?type=1&query={service_name}'
     driver = webdriver.Chrome('D:/chromedriver')
+    driver.maximize_window()
     articles = []
 
     driver.get(service_url.format(service_name=service_name))
@@ -43,58 +47,27 @@ def get_service_search_page(openid, service_name, pages=2):
     driver.switch_to.window(driver.window_handles[-1])
     # driver.implicitly_wait(2)
     # driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL +'W')
+
+    base_url = 'http://mp.weixin.qq.com'
+    # sougou has different showcase according to window size.
     print driver.current_url
 
-    click_num = 0
-
     try:
-        if click_num < pages:
-            time.sleep(random.randrange(1, 3))
-            click_more = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="wxmore"]/a')))
-            click_more.click()
-            click_num = click_num + 1
-
-        # waitting until element is already reloaded
-        # WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="wxmore"]/a')))
-
-        for i in range(pages*10):
+        for i in range(1, 2):
             index = str(i)
-            article = collections.OrderedDict()
-            publish_date = date_parse(driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_box_'+index+'"]/div[2]/div').text)
-            if not publish_date:
-                continue
+            parent_element = driver.find_element_by_xpath('//*[@id="history"]/div[%s]' % index)
+            children = parent_element.find_elements_by_class_name('appmsg')
 
-            article['publish_date'] = publish_date
-            article['service_name'] = service_name
-            article['title'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').text
-            article['article_url'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_title_'+index+'"]').get_attribute('href')
-            article['summary'] = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_summary_'+index+'"]').text
-            article['openid'] = openid
-            article['url'] = driver.current_url
-            # article['url'] = service_url.format(openid=openid)
-            article['crawled_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            # article['html'] = requests.get(article['article_url']).content
-            articles.append(article)
-
-
-# 搜狗修改了网页代码 20150812 之前可用
-        # title_list = driver.find_elements_by_xpath('//*[@id="sogou_vr_11002601_box_0"]/div[2]/h4')
-        # summary_list = driver.find_elements_by_xpath('//*[@id="sogou_vr_11002601_box_0"]/div[2]/p[1]')
-        # article_url_list= driver.find_elements_by_xpath('//*[@id="sogou_vr_11002601_img_0"]')
-        # publish_date_list = driver.find_elements_by_xpath('//*[@id="sogou_vr_11002601_box_0"]/div[2]/p[2]')
-
-        # for title, summary, article_url, publish_date in zip(title_list, summary_list, article_url_list, publish_date_list):
-            # article = {}
-            # article['openid'] = openid
-            # article['service_name'] = service_name
-            # article['url'] = service_url.format(openid=openid)
-            # article['title'] = title.text
-            # article['summary'] = summary.text
-            # article['article_url'] = article_url.get_attribute('href')
-            # article['publish_date'] = date_parse(publish_date.text)
-            # article['crawled_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            # # article['html'] = requests.get(article['article_url']).content
-            # articles.append(article)
+            for child in children:
+                article = collections.OrderedDict()
+                article['title'] = child.find_element_by_class_name('weui_media_title').text
+                article['summary'] = child.find_element_by_class_name('weui_media_desc').text
+                article['article_url'] = base_url+child.find_element_by_class_name('weui_media_title').get_attribute('hrefs')
+                article['publish_date'] = child.find_element_by_class_name('weui_media_extra_info')
+                article['openid'] = openid
+                article['url'] = driver.current_url
+                article['crawled_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                articles.append(article)
 
     except:
         import sys, traceback
@@ -140,12 +113,12 @@ def get_keyword_search_page(query, pages=2):
         while True:
             WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sogou_next"]')))
 
-            for i in range(8):
+            for i in range(10):
                 article = collections.OrderedDict()
                 try:
                     publish_text = driver.find_element_by_xpath('//*[@id="sogou_vr_11002601_box_'+str(i)+'"]/div[2]/div').text
-                    # split publish_text with two continuous number
-                    match = re.match(r'(.*?)(\d\d.+)', publish_text)
+                    # split publish_text with number
+                    match = re.match(r'(.*?)(\d.+)', publish_text)
                     if not date_parse(match.group(2)):
                         continue
                     article['publish_date'] = date_parse(match.group(2))
@@ -165,6 +138,7 @@ def get_keyword_search_page(query, pages=2):
             page = page + 1
             if page > pages:
                 break
+            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="sogou_next"]')))
             next_page = driver.find_element_by_xpath('//*[@id="sogou_next"]')
             next_page.click()
     except Exception:
@@ -173,6 +147,7 @@ def get_keyword_search_page(query, pages=2):
     finally:
         for index in range(len(articles)):
             try:
+                time.sleep(random.randrange(3, 10))
                 driver.get(articles[index]['article_url'])
                 WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="activity-name"]')))
                 articles[index]['article_url'] = driver.current_url
@@ -188,12 +163,14 @@ def date_parse(date_str):
     Parse chinese date and time. If success return parsed date and time, else
     return input date_str.
     '''
+    '''
     date_text = date_str.replace(u'月', ',').replace(u'日', ',')
     if u'年' in date_text:
         date_text = date_text.replace(u'年', ',')
     else:
-        date_text = time.strftime('%Y',time.localtime(time.time())) +',' + date_text
-    result = dateparser.parse(date_text, date_formats=['%Y-%m-%d %H:%M:%S'])
+        date_text = time.strftime('%Y', time.localtime(time.time())) + ',' + date_text
+    '''
+    result = dateparser.parse(date_str, date_formats=['%Y-%m-%d %H:%M'])
 
     if result:
         if (datetime.now()-result) > timedelta(days=2):
@@ -258,12 +235,19 @@ def article_to_file(prefix, articles):
 
     with open(file_name, 'wb') as f:
         if len(articles) == 0:
-            f.write('庞大鳄，今天没有新数据!')
+            f.write('今天没有新数据!')
             return
         keys = articles[0].keys()
         dict_writer = csv.DictWriter(f, fieldnames=keys, delimiter="$")
         dict_writer.writeheader()
         dict_writer.writerows(articles)
+
+
+def parse_Url(html,patstring):
+    pat = re.compile(patstring,re.S)
+    url = pat.findall(html)[0]
+    return url
+
 
 
 # def article_to_file(prefix, articles):

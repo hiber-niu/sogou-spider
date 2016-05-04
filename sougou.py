@@ -10,7 +10,7 @@ __author__ = 'hiber'
 from weixin.weixin_util import get_keyword_search_page
 from weixin.weixin_util import get_service_search_page
 # from weixin.html_download import article_extractor
-from weixin.weixin_util import article_to_mongodb
+# from weixin.weixin_util import article_to_mongodb
 from weixin.weixin_util import article_to_file
 from weixin.weixin_util import remove_dup
 from weixin.email_result import send_email
